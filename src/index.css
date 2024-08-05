@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+*{
+  font-family: "Roboto", sans-serif;
+}
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+@media (max-width: 480px) {
+  .header, .footer {
+      font-size: 14px;
+  }
+
+  .navbar a {
+      padding: 10px;
+      font-size: 14px;
+  }
+
+  .container {
+      padding: 10px;
+  }
+
+  .article {
+      padding: 10px;
+  }
+}
+@media (max-width: 768px) {
+  .container {
+    padding: 10px;
+  }
+}
+@media (max-width: 1200px) { /* pour tablettes et petits écrans */ }
+@media (max-width: 768px) { /* pour téléphones mobiles */ }
+@media (max-width: 480px) { /* pour petits téléphones mobiles */ }

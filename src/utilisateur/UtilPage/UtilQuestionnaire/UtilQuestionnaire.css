@@ -1,0 +1,271 @@
+/* Base styling */
+:root {
+    --primary-main: #00796b; /* Main green */
+    --primary-dark: #004d40; /* Dark green */
+    --primary-light: #b2dfdb; /* Light green */
+    --background-default: #e0f7fa;
+    --background-paper: #ffffff;
+    --sidebar-background: #f5f5f5;
+    --text-primary: #000000;
+    --text-secondary: #555555;
+  }
+  
+  /* Dark theme variables */
+  [data-theme="dark"] {
+    --primary-main: #64b5f6; /* Main blue */
+    --primary-dark: #1565c0; /* Dark blue */
+    --primary-light: #bbdefb; /* Light blue */
+    --background-default: #121212;
+    --background-paper: #1e1e1e;
+    --sidebar-background: #333333;
+    --text-primary: #ffffff;
+    --text-secondary: #bbbbbb;
+  }
+  
+  /* General Styles */
+  .App {
+    /* padding: 15px; */
+    display: flex;
+    flex-direction: column;
+    border: 1px solid black;
+    border-radius: 10px;
+    box-shadow: 3px 3px 2px black;
+    background-color: var(--background-paper); /* Adjusted for dark mode */
+    color: var(--text-primary); /* Ensure text is visible */
+  }
+  .home-page{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    background-color: var(--background-default);
+    padding: 40px;
+  }
+  .titre{
+    font-size: 2.5rem; /* Adjust font size */
+    font-weight: bold; /* Make the font bold */
+    color:var(--primary-main);
+    text-align: center; /* Center the title */
+    margin: 20px 0; /* Add some margin */
+    padding: 10px; /* Add padding around the title */
+  }
+  .select-lang{
+    font-size: .9em;
+    padding: 3px;
+    border: 2px solid var(--primary-main);
+    border-radius: 5px;
+    background-color: var(--background-paper);
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 20px 0;
+  }
+  .select-lang:hover{
+    border-color: var(--primary-dark);
+    background-color: var(--primary-light);
+  }
+  h1 {
+    color: var(--primary-main);
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+  }
+  
+  
+  /* Styles for questionnaires */
+  .questionnaire-form {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 30px;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    background-color: var(--background-paper);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
+  
+  /* Question item styles */
+  .question-item {
+    margin-bottom: 20px;
+    text-align: left; /* Default text alignment for LTR languages */
+  }
+  
+  .question-item p {
+    margin: 0;
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+  }
+  
+  /* Styles for form controls */
+  .form-control {
+    width: 100%;
+    padding: 15px;
+    margin-top: 5px;
+    box-sizing: border-box;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+  }
+  
+  /* Option group styles */
+  .option-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .option-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    transition: background-color 0.3s, border-color 0.3s;
+  }
+  
+  .option-label:hover {
+    background-color: #e0e0e0;
+  }
+  
+  .option-label input {
+    display: none;
+  }
+  
+  .custom-radio {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #ddd;
+    border-radius: 50%;
+    margin-right: 10px;
+    position: relative;
+    display: inline-block;
+  }
+  
+  .option-label input:checked + .custom-radio {
+    border-color: var(--primary-main);
+    background-color: var(--primary-main);
+  }
+  
+  .custom-radio::after {
+    content: "";
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: white;
+  }
+  
+  /* Button styles */
+  .btn-submit,
+  .btn-start,
+  .btn-restart {
+    background-color: var(--primary-main);
+    color: var(--text-primary);
+    border: none;
+    border-radius: 5px;
+    padding: 15px 30px;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 20px;
+  }
+  
+  .btn-submit:hover,
+  .btn-start:hover,
+  .btn-restart:hover {
+    background-color: var(--primary-dark);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+    transform: translateY(-2px);
+  }
+  /* Specific styles for the Likert scale */
+  .likert-scale {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .likert-scale li {
+    display: flex;
+    align-items: center;
+    margin: 5px 5px 0 0;
+  }
+  
+  .likert-scale label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+  }
+  
+  /* Dark mode styles for the Likert scale */
+  [data-theme="dark"] .likert-scale label {
+    color: var(--text-primary);
+    background-color: #333333;
+  }
+  
+  [data-theme="dark"] .likert-scale input[type="radio"]:checked + label::before {
+    border-color: var(--primary-main);
+    background-color: var(--primary-main);
+  }
+  
+  [data-theme="dark"] .likert-scale input[type="radio"]:checked + label::after {
+    background-color: #ffffff;
+  }
+  
+  /* Styles for the confirmation page */
+  .confirmation-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: var(--background-paper);
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .confirmation-page h2 {
+    color: var(--primary-main);
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  
+  .confirmation-page p {
+    color: var(--text-primary);
+    font-size: 1.2rem;
+    text-align: center;
+    margin-top: 0;
+  }
+  
+  .confirmation-page .btn-restart {
+    display: inline-block;
+    padding: 15px 30px;
+    margin-top: 20px;
+    color: var(--text-primary);
+    background-color: var(--primary-main);
+    border: none;
+    border-radius: 25px;
+    text-decoration: none;
+    font-size: 1.3rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    background-image: linear-gradient(to right, var(--primary-main), #45a049);
+  }
+  
+  .confirmation-page .btn-restart:hover {
+    background-image: linear-gradient(to right, #45a049, #388e3c);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+    transform: translateY(-2px);
+  }
+  

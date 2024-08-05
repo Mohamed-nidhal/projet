@@ -1,0 +1,27 @@
+/* Media queries pour très petits écrans */
+@media (max-width: 480px) {
+    .header, .footer {
+        font-size: 14px;
+    }
+  
+    .navbar a {
+        padding: 10px;
+        font-size: 14px;
+    }
+  
+    .container {
+        padding: 10px;
+    }
+  
+    .article {
+        padding: 10px;
+    }
+  }
+  @media (max-width: 768px) {
+    .container {
+      padding: 10px;
+    }
+  }
+  @media (max-width: 1200px) { /* pour tablettes et petits écrans */ }
+@media (max-width: 768px) { /* pour téléphones mobiles */ }
+@media (max-width: 480px) { /* pour petits téléphones mobiles */ }
