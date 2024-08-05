@@ -2,11 +2,25 @@ import React, { useState } from "react";
 
 const Question = ({ question, onAnswer, disabled, error }) => {
   const [answer, setAnswer] = useState("");
-
-  const handleAnswerChange = (e) => {
+  const [checkedOptions,setCheckedOptions]=useState("");
+  const handleAnswerChange = (e,checkBox) => {
+   
+    
     const { value } = e.target;
-    setAnswer(value);
-    onAnswer(question.id, value);
+    if(checkBox){
+      setCheckedOptions(checkBox)
+      console.log(checkBox)
+      console.log(checkedOptions)
+      setAnswer(checkBox);
+      onAnswer(question.id, checkBox);
+    }else{
+      console.log(value)
+      console.log(checkedOptions)
+      setAnswer(value);
+      onAnswer(question.id, value);
+    }
+    
+    
   };
 
   const handleTextChange = (e) => {
@@ -60,11 +74,12 @@ const Question = ({ question, onAnswer, disabled, error }) => {
           {question.options.map((option, index) => (
             <label key={index} className="option-label">
               <input
-                type="radio"
-                name={`question-${question.id}`}
+                type="checkbox"
+                name={`question-${index}`}
                 value={option}
-                checked={answer === option}
-                onChange={handleAnswerChange}
+                // checked={answer === option}
+                // onChange={handleAnswerChange}
+                onChange={(e)=>handleAnswerChange(e,e.target.value+" - "+checkedOptions)}
                 disabled={disabled}
               />
               <span className="custom-radio"></span>
@@ -124,14 +139,24 @@ const UtilQuest = ({ questions, onComplete }) => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
+    console.log(answers)
     const unansweredQuestions = questions.filter(
       (question) => !disabledQuestions.has(question.id) && !answers[question.id]
     );
     if (unansweredQuestions.length > 0) {
       setError("Please answer all the questions before submitting.");
     } else {
+      const res=await fetch(`${import.meta.env.VITE_BASE_URL}/answer`, {
+        method: 'POST',
+        body: JSON.stringify(answers),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      console.log(answers)
+      console.log(res)
       setError("");
       onComplete();
     }
