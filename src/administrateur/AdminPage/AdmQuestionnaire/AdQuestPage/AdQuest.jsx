@@ -1,77 +1,4 @@
-// AdQuest.jsx
-
 import React, { useState } from "react";
-
-const Question = ({ question, disabled }) => {
-  return (
-    <div className={`question-item ${disabled ? "disabled" : ""}`}>
-      <p>
-        <strong>{question.text}</strong>
-      </p>
-      {question.type === "text" && (
-        <input
-          type="text"
-          className="form-control"
-          disabled={disabled}
-        />
-      )}
-      {question.type === "number" && (
-        <input
-          type="number"
-          className="form-control"
-          disabled={disabled}
-        />
-      )}
-      {question.type === "email" && (
-        <input
-          type="email"
-          className="form-control"
-          disabled={disabled}
-        />
-      )}
-      {question.type === "long-text" && (
-        <textarea
-          className="form-control"
-          disabled={disabled}
-        ></textarea>
-      )}
-      {question.type === "multiple-choice" && (
-        <div className="option-group">
-          {question.options.map((option, index) => (
-            <label key={index} className="option-label">
-              <input
-                type="checkbox"
-                name={`question-${question.id}`}
-                value={option}
-                disabled={disabled}
-              />
-              <span className="custom-checkbox"></span>
-              {option}
-            </label>
-          ))}
-        </div>
-      )}
-      {question.type === "likert" && (
-        <ul className="likert-scale">
-          {question.options.map((option, index) => (
-            <li key={index}>
-              <label className="likert-option">
-                <input
-                  type="radio"
-                  name={`likert-${question.id}`}
-                  value={option}
-                  disabled={disabled}
-                />
-                <span className="checkmark"></span>
-                {option}
-              </label>
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
-  );
-};
 
 const AdQuest = ({ questions, onComplete, onAddQuestion, onSave }) => {
   const [newQuestionText, setNewQuestionText] = useState("");
@@ -79,27 +6,30 @@ const AdQuest = ({ questions, onComplete, onAddQuestion, onSave }) => {
   const [likertOptions, setLikertOptions] = useState([]);
   const [multipleChoiceOptions, setMultipleChoiceOptions] = useState([]);
   const [error, setError] = useState("");
+  const [showShareOptions, setShowShareOptions] = useState(false);
 
   const handleAddQuestion = (e) => {
     e.preventDefault();
-    if (newQuestionText.trim() !== "") {
-      // Avoid adding duplicate questions
-      if (!questions.some(q => q.text === newQuestionText && q.type === newQuestionType)) {
-        let options = [];
-        if (newQuestionType === "likert") {
-          options = likertOptions;
-        } else if (newQuestionType === "multiple-choice") {
-          options = multipleChoiceOptions;
-        }
-        onAddQuestion(newQuestionText, newQuestionType, options);
-        setNewQuestionText("");
-        setNewQuestionType("text");
-        setLikertOptions([]);
-        setMultipleChoiceOptions([]);
-      } else {
-        setError("This question already exists.");
-      }
+    if (newQuestionText.trim() === "") {
+      setError("Question text cannot be empty.");
+      return;
     }
+    if (questions.some((q) => q.text === newQuestionText && q.type === newQuestionType)) {
+      setError("This question already exists.");
+      return;
+    }
+    let options = [];
+    if (newQuestionType === "likert") {
+      options = likertOptions;
+    } else if (newQuestionType === "multiple-choice") {
+      options = multipleChoiceOptions;
+    }
+    onAddQuestion(newQuestionText, newQuestionType, options);
+    setNewQuestionText("");
+    setNewQuestionType("text");
+    setLikertOptions([]);
+    setMultipleChoiceOptions([]);
+    setError("");
   };
 
   const handleAddLikertOption = () => {
@@ -111,25 +41,102 @@ const AdQuest = ({ questions, onComplete, onAddQuestion, onSave }) => {
   };
 
   const handleSave = () => {
-    // Call the onSave function to perform the saving operation
     onSave();
   };
 
   const handleValidateAndConfirm = () => {
-    // Perform validation here
-    // Assuming validation is successful, navigate to confirmation page
     onComplete();
   };
 
+  const handleShareViaEmail = () => {
+    const questionnaireURL = "https://your-website.com/utilquest";
+    const subject = "Check out this questionnaire";
+    const body = `Hi there,\n\nPlease fill out this questionnaire: ${questionnaireURL}\n\nThank you!`;
+    const mailtoLink = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.location.href = mailtoLink;
+  };
+
+  const handleShareViaWebsite = () => {
+    const questionnaireURL = "https://your-website.com/utilquest";
+    navigator.clipboard.writeText(questionnaireURL);
+    alert("Questionnaire URL copied to clipboard!");
+  };
+
+  const handleShareOnSocialMedia = () => {
+    const questionnaireURL = "https://your-website.com/utilquest";
+    const shareText = `Check out this questionnaire: ${questionnaireURL}`;
+    if (navigator.share) {
+      navigator.share({
+        title: "Questionnaire",
+        text: shareText,
+        url: questionnaireURL,
+      }).catch((error) => console.log("Error sharing:", error));
+    } else {
+      alert("Sharing not supported on this browser.");
+    }
+  };
+
+  const Question = ({ question, disabled }) => {
+    return (
+      <div className={`question-item ${disabled ? "disabled" : ""}`}>
+        <p>
+          <strong>{question.text}</strong>
+        </p>
+        {question.type === "text" && (
+          <input type="text" className="form-control" disabled={disabled} />
+        )}
+        {question.type === "number" && (
+          <input type="number" className="form-control" disabled={disabled} />
+        )}
+        {question.type === "email" && (
+          <input type="email" className="form-control" disabled={disabled} />
+        )}
+        {question.type === "long-text" && (
+          <textarea className="form-control" disabled={disabled}></textarea>
+        )}
+        {question.type === "multiple-choice" && (
+          <div className="option-group">
+            {question.options.map((option, index) => (
+              <label key={index} className="option-label">
+                <input
+                  type="checkbox"
+                  name={`question-${question.id}`}
+                  value={option}
+                  disabled={disabled}
+                />
+                <span className="custom-checkbox"></span>
+                {option}
+              </label>
+            ))}
+          </div>
+        )}
+        {question.type === "likert" && (
+          <ul className="likert-scale">
+            {question.options.map((option, index) => (
+              <li key={index}>
+                <label className="likert-option">
+                  <input
+                    type="radio"
+                    name={`likert-${question.id}`}
+                    value={option}
+                    disabled={disabled}
+                  />
+                  <span className="checkmark"></span>
+                  {option}
+                </label>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    );
+  };
+
   return (
-    <div>
+    <div className="adquest-container">
       <form className="questionnaire-form">
         {questions.map((question) => (
-          <Question
-            key={question.id}
-            question={question}
-            disabled={true}  // Disable interaction since answers are not needed
-          />
+          <Question key={question.id} question={question} disabled={true} />
         ))}
         {error && <p className="error-message">{error}</p>}
         <div className="add-question-form">
@@ -202,6 +209,16 @@ const AdQuest = ({ questions, onComplete, onAddQuestion, onSave }) => {
           </button>
         </div>
       </form>
+      <div className="share-button" onClick={() => setShowShareOptions(!showShareOptions)}>
+        Share
+      </div>
+      {showShareOptions && (
+        <div className="share-options">
+          <button onClick={handleShareViaEmail}>Share via Email</button>
+          <button onClick={handleShareViaWebsite}>Share via Website</button>
+          <button onClick={handleShareOnSocialMedia}>Share on Social Media</button>
+        </div>
+      )}
     </div>
   );
 };

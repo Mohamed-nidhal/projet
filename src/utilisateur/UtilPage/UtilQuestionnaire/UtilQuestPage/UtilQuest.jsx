@@ -2,25 +2,18 @@ import React, { useState } from "react";
 
 const Question = ({ question, onAnswer, disabled, error }) => {
   const [answer, setAnswer] = useState("");
-  const [checkedOptions,setCheckedOptions]=useState("");
-  const handleAnswerChange = (e,checkBox) => {
-   
-    
+  const [checkedOptions, setCheckedOptions] = useState("");
+
+  const handleAnswerChange = (e, checkBox) => {
     const { value } = e.target;
-    if(checkBox){
-      setCheckedOptions(checkBox)
-      console.log(checkBox)
-      console.log(checkedOptions)
+    if (checkBox) {
+      setCheckedOptions(checkBox);
       setAnswer(checkBox);
       onAnswer(question.id, checkBox);
-    }else{
-      console.log(value)
-      console.log(checkedOptions)
+    } else {
       setAnswer(value);
       onAnswer(question.id, value);
     }
-    
-    
   };
 
   const handleTextChange = (e) => {
@@ -77,9 +70,7 @@ const Question = ({ question, onAnswer, disabled, error }) => {
                 type="checkbox"
                 name={`question-${index}`}
                 value={option}
-                // checked={answer === option}
-                // onChange={handleAnswerChange}
-                onChange={(e)=>handleAnswerChange(e,e.target.value+" - "+checkedOptions)}
+                onChange={(e) => handleAnswerChange(e, e.target.value + " - " + checkedOptions)}
                 disabled={disabled}
               />
               <span className="custom-radio"></span>
@@ -123,10 +114,9 @@ const UtilQuest = ({ questions, onComplete }) => {
       const currentQuestion = questions.find((q) => q.id === id);
       const nextQuestionId = id + 1;
 
-      if (
-        currentQuestion.type === "multiple-choice" &&
-        (answer === "Non" || answer === "No" || answer === "لا")
-      ) {
+      if (currentQuestion.type === "multiple-choice" && (answer === "non" || answer === "No" || answer === "لا" || answer === "Non" || answer === "no")) {
+        setDisabledQuestions((prev) => new Set(prev).add(nextQuestionId));
+      } else if (currentQuestion.type === "likert" && (answer === "non"|| answer === "Non")) {
         setDisabledQuestions((prev) => new Set(prev).add(nextQuestionId));
       } else {
         setDisabledQuestions((prev) => {
@@ -135,28 +125,28 @@ const UtilQuest = ({ questions, onComplete }) => {
           return newSet;
         });
       }
+
       return newAnswers;
     });
   };
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(answers)
     const unansweredQuestions = questions.filter(
       (question) => !disabledQuestions.has(question.id) && !answers[question.id]
     );
     if (unansweredQuestions.length > 0) {
       setError("Please answer all the questions before submitting.");
     } else {
-      const res=await fetch(`${import.meta.env.VITE_BASE_URL}/answer`, {
+      const res = await fetch(`${import.meta.env.VITE_BASE_URL}/answer`, {
         method: 'POST',
         body: JSON.stringify(answers),
         headers: {
           'Content-Type': 'application/json',
         },
       });
-      console.log(answers)
-      console.log(res)
+      console.log(answers);
+      console.log(res);
       setError("");
       onComplete();
     }

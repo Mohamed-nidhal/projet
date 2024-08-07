@@ -13,7 +13,6 @@ import Typography from "@mui/material/Typography";
 import { getDesignTokens } from "../Theme";
 import { Outlet } from "react-router-dom";
 import UtilTopBar from "./UtilComponent/UtilTopBar";
-import UtilSideBar from "./UtilComponent/UtilSideBar";
 
 const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
@@ -52,7 +51,6 @@ export default function MiniDrawer() {
           setMode={setMode}
         />
 
-        <UtilSideBar open={open} handleDrawerClose={handleDrawerClose} />
 
         <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
           <DrawerHeader />

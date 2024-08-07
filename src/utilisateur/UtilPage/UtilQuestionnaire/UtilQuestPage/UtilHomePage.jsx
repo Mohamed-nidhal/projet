@@ -1,11 +1,29 @@
 import React from 'react';
 
+const translations = {
+  fr: {
+    welcomeMessage: "Bienvenue dans le questionnaire",
+    selectLanguage: "Sélectionner la langue",
+    startButton: "Démarrer le questionnaire"
+  },
+  en: {
+    welcomeMessage: "Welcome to the Questionnaire",
+    selectLanguage: "Select Language",
+    startButton: "Start Questionnaire"
+  },
+  ar: {
+    welcomeMessage: "مرحبا بك في الاستبيان",
+    selectLanguage: "اختر اللغة",
+    startButton: "بدء الاستبيان"
+  }
+};
+
 const UtilHomePage = ({ onStart, language, onLanguageChange }) => {
   return (
     <div className="home-page">
-      <h1 className='titre'>Welcome to the Questionnaire</h1>
+      <h1 className='titre'>{translations[language].welcomeMessage}</h1>
       <label>
-        Select Language:
+        {translations[language].selectLanguage}:
         <select value={language} onChange={onLanguageChange} className='select-lang'>
           <option value="fr">Français</option>
           <option value="en">English</option>
@@ -13,7 +31,7 @@ const UtilHomePage = ({ onStart, language, onLanguageChange }) => {
         </select>
       </label>
       <button className="btn-start" onClick={onStart}>
-        Start Questionnaire
+        {translations[language].startButton}
       </button>
     </div>
   );

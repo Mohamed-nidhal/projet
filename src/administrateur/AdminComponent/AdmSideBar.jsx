@@ -17,6 +17,7 @@ import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 
 import { useLocation, useNavigate } from "react-router-dom";
 import { grey } from "@mui/material/colors";
+import { PieChartOutline } from "@mui/icons-material/index";
 
 const drawerWidth = 240;
 const openedMixin = (theme) => ({
@@ -69,7 +70,6 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 
 const Array1 = [
   { text: "Dashboard", icon: <HomeOutlinedIcon />, path: "/" },
-  { text: "Quiz", icon: <QuizOutlined />, path: "/Quiz" },
   {
     text: "Questionnaire",
     icon: <QuestionAnswerOutlined />,
@@ -81,6 +81,7 @@ const Array1 = [
 
 const Array2 = [
   { text: "Participant", icon: <PersonOutline />, path: "/Participant" },
+
 ];
 
 

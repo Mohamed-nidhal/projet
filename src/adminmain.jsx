@@ -9,7 +9,6 @@ import {
 } from "react-router-dom";
 import AppAdmin from './administrateur/AppAdmin';
 import AdmDash from './administrateur/AdminPage/AdmDashboard/AdmDash';
-import AdmQuiz from './administrateur/AdminPage/AdmQuiz/AdmQuiz';
 import AdmQuestionnaire from './administrateur/AdminPage/AdmQuestionnaire/AdmQuestionnaire';
 import Participant from './administrateur/AdminPage/Participant/Participant';
 
@@ -19,7 +18,6 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<AppAdmin />}>
       <Route index element={<AdmDash />} />
-      <Route path='Quiz' element={<AdmQuiz />} />
       <Route path='Questionnaire' element={<AdmQuestionnaire />} />
       <Route path='Participant' element={<Participant />} />
     </Route>

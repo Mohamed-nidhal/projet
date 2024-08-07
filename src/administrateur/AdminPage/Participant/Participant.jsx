@@ -83,7 +83,7 @@ const Participant = () => {
 
   const handleExportPDF = () => {
     const doc = new jsPDF();
-    doc.text("Participants", 20, 10);
+    // doc.text("Participants", 20, 10);
     doc.autoTable({
       head: [header],
       body: data.map(row => header.map(field => row[field])),

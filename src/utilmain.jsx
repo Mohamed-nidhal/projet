@@ -9,15 +9,13 @@ import {
 } from "react-router-dom";
 import AppUtil from './utilisateur/AppUtil';
 import UtilQuestionnaire from './utilisateur/UtilPage/UtilQuestionnaire/UtilQuestionnaire';
-import UtilQuiz from './utilisateur/UtilPage/UtilQuiz/UtilQuiz';
 
 
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<AppUtil />}>
-      <Route index element={< UtilQuiz/>} />
-      <Route path='Questionnaire' element={<UtilQuestionnaire />} />
+      <Route index element={< UtilQuestionnaire />} />
     </Route>
   )
 );

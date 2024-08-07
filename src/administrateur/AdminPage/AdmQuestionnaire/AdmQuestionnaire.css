@@ -564,4 +564,59 @@ input[type="radio"]:checked + .custom-radio:after {
   .share-button:hover {
     background-color: #0056b3;
   }
+  .adquest-container {
+    position: relative;
+  }
   
+  .share-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .share-options {
+    position: fixed;
+    bottom: 70px;
+    right: 20px;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .share-options button {
+    background: none;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    text-align: left;
+  }
+  
+  .share-options button:hover {
+    background-color: #f0f0f0;
+  }
+  @media (max-width: 600px) {
+    .home-page {
+        padding: 20px;
+    }
+
+    .btn {
+        padding: 8px 16px;
+        font-size: 1rem;
+    }
+
+    .question-item {
+        padding: 10px;
+    }
+}
